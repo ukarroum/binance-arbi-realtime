@@ -44,8 +44,21 @@ def handle_ticker_data(msg, write_client):
 
         save_point(p, write_client)
 
-    sys.exit(-1)
-    
+
+def handle_symbol_book_ticker_socket(msg, write_client):
+    print(msg)
+
+    p = influxdb_client.Point("book_ticker")\
+            .tag("symbol", msg["s"])\
+            .field("updamsge_id", msg["u"])\
+            .field("bid", msg["b"])\
+            .field("ask", msg["a"])\
+            .field("bid_qmsgy", msg["B"])\
+            .field("ask_qmsgy", msg["A"])
+
+    save_point(p, write_client)
+
+
 def save_point(p, write_client):
     write_client.write(bucket=os.environ['ARBI_INFLUX_BUCKET'], org=os.environ["ARBI_INFLUX_ORG"], record=p)
 
@@ -66,7 +79,7 @@ def main():
 
     twm.start()
 
-    twm.start_ticker_socket(callback=functools.partial(handle_ticker_data, write_client=write_client))
+    twm.start_symbol_book_ticker_socket(callback=functools.partial(handle_symbol_book_ticker_socket, write_client=write_client), symbol="BNBUSDT")
 
     twm.join()
 
