@@ -53,8 +53,8 @@ def handle_symbol_book_ticker_socket(msg, write_client):
             .field("updamsge_id", msg["u"])\
             .field("bid", msg["b"])\
             .field("ask", msg["a"])\
-            .field("bid_qmsgy", msg["B"])\
-            .field("ask_qmsgy", msg["A"])
+            .field("bid_qty", msg["B"])\
+            .field("ask_qty", msg["A"])
 
     save_point(p, write_client)
 
