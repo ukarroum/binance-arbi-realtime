@@ -14,7 +14,7 @@ with DAG(
         'retries': 1,
         'retry_delay': timedelta(minutes=5)
     },
-    schedule_interval="0 6 * * 2-6",
+    schedule_interval="0 6 * * *",
     start_date=datetime(2019, 1, 1),
     tags=['binance', 'data']
 ) as dag:
