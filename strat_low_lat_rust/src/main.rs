@@ -1,9 +1,8 @@
-
 use tungstenite::{connect};
 use url::Url;
 
 fn main() {
-    let (mut socket, response) = connect(Url::parse("wss://stream.binance.com:9443/ws/bnbusdt@bookTicker").unwrap()).expect("Can't connect");
+    let (mut socket, response) = connect(Url::parse("wss://stream.binance.com:9443/stream?streams=ethbtc@bookTicker/usdteth@bookTicker/btcusdt@bookTicker").unwrap()).expect("Can't connect");
 
     println!("Response http code: {}", response.status());
 
